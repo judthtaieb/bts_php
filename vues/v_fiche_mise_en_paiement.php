@@ -1,0 +1,1 @@
+la fiche a bien été mise en paiement !

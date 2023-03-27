@@ -19,6 +19,7 @@
     <div class="panel-heading">Fiche de frais du mois 
         <?php echo $numMois . '-' . $numAnnee ?> : </div>
     <div class="panel-body">
+        <!-- strong c mettre en gras , u c est souligner-->
         <strong><u>Etat :</u></strong> <?php echo $libEtat ?>
         depuis le <?php echo $dateModif ?> <br> 
         <strong><u>Montant validé :</u></strong> <?php echo $montantValide ?>
@@ -50,6 +51,8 @@
 <div class="panel panel-info">
     <div class="panel-heading">Descriptif des éléments hors forfait - 
         <?php echo $nbJustificatifs ?> justificatifs reçus</div>
+        <!-- on cree un tableau :ligne tr ,th colonne et ds les tr on cree des td 
+        cad qu on remplit les cases de la ligne selon les colonnes-->
     <table class="table table-bordered table-responsive">
         <tr>
             <th class="date">Date</th>

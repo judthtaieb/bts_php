@@ -32,6 +32,7 @@
                         $numMois = $unMois['numMois'];
                         if ($mois == $moisASelectionner) {
                             ?>
+                            <!--option est utilisé pour une liste de selection deroulante -->
                             <option selected value="<?php echo $mois ?>">
                                 <?php echo $numMois . '/' . $numAnnee ?> </option>
                             <?php

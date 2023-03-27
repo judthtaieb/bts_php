@@ -29,14 +29,14 @@
     <body>
         <div class="container">
             <?php
-            $uc = filter_input(INPUT_GET, 'uc', FILTER_SANITIZE_STRING);
+            $uc = filter_input(INPUT_GET, 'uc', FILTER_SANITIZE_ENCODED);
             if ($estConnecte) {
                 ?>
             <div class="header">
                 <div class="row vertical-align">
                     <div class="col-md-4">
                         <h1>
-                            <img src="./images/logo.jpg" class="img-responsive" 
+                            <img src="./images/logo1.jpg" class="img-responsive" 
                                  alt="Laboratoire Galaxy-Swiss Bourdin" 
                                  title="Laboratoire Galaxy-Swiss Bourdin">
                         </h1>
@@ -68,6 +68,7 @@
                                     Déconnexion
                                 </a>
                             </li>
+                        
                         </ul>
                     </div>
                 </div>
@@ -76,10 +77,19 @@
             } else {
                 ?>   
                 <h1>
-                    <img src="./images/logo.jpg"
+                    <img src="./images/logo1.jpg"
                          class="img-responsive center-block"
                          alt="Laboratoire Galaxy-Swiss Bourdin"
                          title="Laboratoire Galaxy-Swiss Bourdin">
                 </h1>
                 <?php
+            }
+            if(isset($_SESSION['type'])){
+                if ($_SESSION['type']==1){
+                    require 'vues/v_entete_visiteur.php';
+                }else if ($_SESSION['type']==2){
+                    require 'vues/v_entete_compta.php';
+                }
+            }else {
+                require 'vues/v_entete_deconnecte.php';
             }

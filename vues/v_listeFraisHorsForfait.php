@@ -29,6 +29,7 @@
             </thead>  
             <tbody>
             <?php
+            //parcourt le tableau frais hf
             foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
                 $libelle = htmlspecialchars($unFraisHorsForfait['libelle']);
                 $date = $unFraisHorsForfait['date'];
@@ -51,6 +52,8 @@
 <div class="row">
     <h3>Nouvel élément hors forfait</h3>
     <div class="col-md-4">
+        <!--qd on clique sur renseigner frais hf on va d abord ds index
+        puis dans gerer frais puis dans la partie validercreationfrais-->
         <form action="index.php?uc=gererFrais&action=validerCreationFrais" 
               method="post" role="form">
             <div class="form-group">
@@ -59,7 +62,8 @@
                        class="form-control" id="text">
             </div>
             <div class="form-group">
-                <label for="txtLibelleHF">Libellé</label>             
+                <label for="txtLibelleHF">Libellé</label> 
+
                 <input type="text" id="txtLibelleHF" name="libelle" 
                        class="form-control" id="text">
             </div> 
@@ -67,6 +71,7 @@
                 <label for="txtMontantHF">Montant : </label>
                 <div class="input-group">
                     <span class="input-group-addon">€</span>
+                    <!-- le name renseigne le champ-->
                     <input type="text" id="txtMontantHF" name="montant" 
                            class="form-control" value="">
                 </div>

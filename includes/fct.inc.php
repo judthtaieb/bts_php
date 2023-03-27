@@ -12,7 +12,7 @@
  * @license   Réseau CERTA
  * @version   GIT: <0>
  * @link      http://www.php.net/manual/fr/book.pdo.php PHP Data Objects sur php.net
- */
+ */ 
 
 /**
  * Teste si un quelconque visiteur est connecté
@@ -33,11 +33,14 @@ function estConnecte()
  *
  * @return null
  */
-function connecter($idVisiteur, $nom, $prenom)
+function connecter($idVisiteur, $nom, $prenom,$type,$fonction)
 {
     $_SESSION['idVisiteur'] = $idVisiteur;
     $_SESSION['nom'] = $nom;
     $_SESSION['prenom'] = $prenom;
+    $_SESSION['type'] = $type;
+    $_SESSION['fonction'] = $fonction;
+   
 }
 
 /**
@@ -60,7 +63,8 @@ function deconnecter()
  */
 function dateFrancaisVersAnglais($maDate)
 {
-    @list($jour, $mois, $annee) = explode('/', $maDate);
+    @list($jour, $mois, $annee) = /* on retire les / */explode('/', $maDate);
+    //pas compris
     return date('Y-m-d', mktime(0, 0, 0, $mois, $jour, $annee));
 }
 
@@ -86,11 +90,17 @@ function dateAnglaisVersFrancais($maDate)
  *
  * @return String Mois au format aaaamm
  */
+//pour une date donnnee 16/12/2001
+//$jour=16
+//$mois=12
+//$annee=2001
 function getMois($date)
 {
     @list($jour, $mois, $annee) = explode('/', $date);
+    //ne prend pas cas de jour
     unset($jour);
-    if (strlen($mois) == 1) {
+    //si on a entre fevrier 2001, on ecrit 200102
+    if (strlen($mois) == 1) { 
         $mois = '0' . $mois;
     }
     return $annee . $mois;
@@ -107,7 +117,8 @@ function getMois($date)
  */
 function estEntierPositif($valeur)
 {
-    return preg_match('/[^0-9]/', $valeur) == 0;
+    //expression reguliere 
+    return preg_match('/[ ^0-9]/', '$valeur') == 0;
 }
 
 /**
@@ -121,6 +132,7 @@ function estTableauEntiers($tabEntiers)
 {
     $boolReturn = true;
     foreach ($tabEntiers as $unEntier) {
+        //si un entier n est pas positif , retourne faux 
         if (!estEntierPositif($unEntier)) {
             $boolReturn = false;
         }
@@ -139,6 +151,7 @@ function estDateDepassee($dateTestee)
 {
     $dateActuelle = date('d/m/Y');
     @list($jour, $mois, $annee) = explode('/', $dateActuelle);
+    //annee moins 1 cad l annee derniere
     $annee--;
     $anPasse = $annee . $mois . $jour;
     @list($jourTeste, $moisTeste, $anneeTeste) = explode('/', $dateTestee);
@@ -154,14 +167,21 @@ function estDateDepassee($dateTestee)
  */
 function estDateValide($date)
 {
+   
     $tabDate = explode('/', $date);
     $dateOK = true;
+    //si ne contient pas 3 variables c est faux
     if (count($tabDate) != 3) {
         $dateOK = false;
+         
     } else {
         if (!estTableauEntiers($tabDate)) {
+            
+
             $dateOK = false;
+
         } else {
+            
             if (!checkdate($tabDate[1], $tabDate[0], $tabDate[2])) {
                 $dateOK = false;
             }
@@ -228,9 +248,12 @@ function valideInfosFrais($dateFrais, $libelle, $montant)
  */
 function ajouterErreur($msg)
 {
+    //dans le cas ou le tableau request ne contient pas la cle erreur
     if (!isset($_REQUEST['erreurs'])) {
+        //cree un tableau request avec un champ erreurs
         $_REQUEST['erreurs'] = array();
     }
+    //ajoutte au tableau request crée par php  pour une variable erreurs un  msg
     $_REQUEST['erreurs'][] = $msg;
 }
 
@@ -241,8 +264,10 @@ function ajouterErreur($msg)
  */
 function nbErreurs()
 {
+    //s il n ya pas de ligne d erreur enregistrée retourne 0
     if (!isset($_REQUEST['erreurs'])) {
         return 0;
+        //sinon compte les lignes d erreurs
     } else {
         return count($_REQUEST['erreurs']);
     }
