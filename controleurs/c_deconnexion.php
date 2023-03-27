@@ -14,11 +14,11 @@
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
 
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_ENCODED);
 if (!$uc) {
     $uc = 'demandeconnexion';
 }
-
+//lrsque l utilisateur appuie sur decnnexion,il est redirigé sur la page de deconnexion
 switch ($action) {
 case 'demandeDeconnexion':
     include 'vues/v_deconnexion.php';
@@ -26,12 +26,14 @@ case 'demandeDeconnexion':
 case 'valideDeconnexion':
     if (estConnecte()) {
         include 'vues/v_deconnexion.php';
+        //si l utilisateur n est pas connecte mais appuie sur deconnexion affiche une erreur
     } else {
         ajouterErreur("Vous n'êtes pas connecté");
         include 'vues/v_erreurs.php';
         include 'vues/v_connexion.php';
     }
     break;
+    //par defaut ,il reste sur la page de connexion 
 default:
     include 'vues/v_connexion.php';
     break;

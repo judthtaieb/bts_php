@@ -16,15 +16,20 @@
 ?>
 <div class="row">    
     <h2>Renseigner ma fiche de frais du mois 
+    <!--recupere les variable nummois et numannee renseignee ds gerer frais-->
         <?php echo $numMois . '-' . $numAnnee ?>
     </h2>
     <h3>Eléments forfaitisés</h3>
     <div class="col-md-4">
+        <!-- va ds index puis ds gerer frais et ensuite va a l action validerMajFrais -->
         <form method="post" 
+        
               action="index.php?uc=gererFrais&action=validerMajFraisForfait" 
               role="form">
             <fieldset>       
                 <?php
+                //parcourt le tableau lesfraisforfaits(definit ds c_gerer_frais) 
+                //on recupere les donnees de frais ,quantite et libelle renseignees
                 foreach ($lesFraisForfait as $unFrais) {
                     $idFrais = $unFrais['idfrais'];
                     $libelle = htmlspecialchars($unFrais['libelle']);
